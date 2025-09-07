@@ -1,0 +1,58 @@
+/*
+===========================================================
+  SIMULAÇÃO DE MOVIMENTAÇÃO DE PEÇAS DE XADREZ
+  - Uso de estruturas de repetição (for, while, do...while)
+  - Saída organizada e clara
+  - Código documentado e de fácil manutenção
+===========================================================
+*/
+
+#include <stdio.h>
+
+// Constantes de movimentação
+const int PASSOS_BISPO = 5;
+const int PASSOS_TORRE = 5;
+const int PASSOS_RAINHA = 8;
+
+int main() {
+    // ========================
+    // BISPO → Diagonal superior direita (5 casas)
+    // Usamos a combinação: Cima + Direita
+    // Estrutura usada: for
+    // ========================
+    printf("Movimento do Bispo:\n");
+    for (int i = 1; i <= PASSOS_BISPO; i++) {
+        printf("Cima\n");
+        printf("Direita\n");
+    }
+    printf("----------------------------\n");
+
+    // ========================
+    // TORRE → 5 casas para a direita
+    // Estrutura usada: while
+    // ========================
+    printf("Movimento da Torre:\n");
+    int j = 1;
+    while (j <= PASSOS_TORRE) {
+        printf("Direita\n");
+        j++;
+    }
+    printf("----------------------------\n");
+
+    // ========================
+    // RAINHA → 8 casas para a esquerda
+    // Estrutura usada: do...while
+    // ========================
+    printf("Movimento da Rainha:\n");
+    int k = 1;
+    do {
+        printf("Esquerda\n");
+        k++;
+    } while (k <= PASSOS_RAINHA);
+    printf("----------------------------\n");
+
+    // Encerramento
+    printf("Fim da simulação de movimentos.\n");
+
+    return 0;
+}
