@@ -1,0 +1,86 @@
+/*
+===============================================================
+  SUPER TRUNFO - DESAFIO LÓGICO
+  Versão simples em C (console)
+
+  - 12 cartas, cada uma com Nome, Categoria e 4 atributos.
+  - O programa aplica um conjunto de "pistas" (condições).
+  - Apenas as cartas que satisfazem TODAS as pistas permanecem.
+  - Resultado: mostra quais cartas ainda são possíveis candidatas.
+
+  Extensões possíveis:
+   - Ler pistas do usuário em tempo de execução.
+   - Implementar diferentes conjuntos de pistas (Fácil, Médio, Difícil).
+   - Mostrar passo-a-passo da eliminação.
+===============================================================
+*/
+
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
+// Estrutura para armazenar carta
+typedef struct {
+    char nome[20];
+    char categoria[20];
+    int vel;
+    int forca;
+    int intel;
+    int defesa;
+} Carta;
+
+// Funções booleanas para pistas (Exercício C - Difícil)
+bool pista1(Carta c) {
+    // Tem uma das 3 maiores defesas (≥ 8)
+    return c.defesa >= 8;
+}
+bool pista2(Carta c) {
+    // Velocidade < Inteligência + 2
+    return c.vel < c.intel + 2;
+}
+bool pista3(Carta c) {
+    // Não tem Força = 9 ou 10
+    return !(c.forca == 9 || c.forca == 10);
+}
+bool pista4(Carta c) {
+    // Se for Hydra, teria que ter Inteligência < 6 (mas Hydra tem 5, então elimina)
+    if (strcmp(c.nome, "Hydra") == 0) return false;
+    return true;
+}
+bool pista5(Carta c) {
+    // Categoria Sábio (Oracle) não pode
+    return strcmp(c.categoria, "Sábio") != 0;
+}
+
+int main() {
+    // Base de dados das cartas
+    Carta baralho[12] = {
+        {"Aquila",   "Rapina",    9, 6, 7, 5},
+        {"Titan",    "Gigante",   4,10, 3, 9},
+        {"Valkyr",   "Guerreiro", 7, 8, 6, 6},
+        {"Zephyr",   "Vento",    10, 4, 8, 3},
+        {"Golem",    "Rocha",     3, 9, 2,10},
+        {"Oracle",   "Sábio",     5, 3,10, 4},
+        {"Phantom",  "Furtivo",   8, 5, 9, 2},
+        {"Hydra",    "Monstro",   6, 9, 5, 7},
+        {"Knight",   "Cavaleiro", 6, 7, 6, 8},
+        {"Nimble",   "Ligeiro",   9, 4, 6, 4},
+        {"Basilisk", "Réptil",    5, 8, 7, 6},
+        {"Storm",    "Tempestade",10,6, 5, 5}
+    };
+
+    printf("=== DESAFIO SUPER TRUNFO (Exercicio C - Dificil) ===\n\n");
+    printf("Cartas candidatas:\n\n");
+
+    // Percorre todas as cartas aplicando as pistas
+    for (int i = 0; i < 12; i++) {
+        Carta c = baralho[i];
+        if (pista1(c) && pista2(c) && pista3(c) && pista4(c) && pista5(c)) {
+            printf("-> %s (%s) [Vel=%d, For=%d, Int=%d, Def=%d]\n",
+                   c.nome, c.categoria, c.vel, c.forca, c.intel, c.defesa);
+        }
+    }
+
+    printf("\nFim da verificacao.\n");
+    return 0;
+}
